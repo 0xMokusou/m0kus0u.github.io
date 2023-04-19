@@ -1,0 +1,18 @@
+---
+layout: page
+title: Diary
+permalink: /diary/
+---
+
+<!-- Custom template for /diary/ collection -->
+<div class="container">
+    <h1>Diary Entries</h1>
+    <ul>
+      {% for diary in site.diary %}
+      <li>
+        <h2><a href="{{ diary.url }}">{{ diary.title }}</a></h2>
+        <p>{{ diary.date | date: "%B %d, %Y" }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>

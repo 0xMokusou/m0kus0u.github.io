@@ -29,9 +29,6 @@ plugins:
   - jekyll-feed
 
 collections:
-  technical:
-    output: true
-    permalink: /technical/:title/
   diary:
     output: true
     permalink: /diary/:title/
