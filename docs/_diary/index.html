@@ -1,0 +1,6 @@
+<h2>Diary</h2>
+<ul>
+  {% for post in site.diary %}
+    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% endfor %}
+</ul>
