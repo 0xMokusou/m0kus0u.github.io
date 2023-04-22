@@ -1,0 +1,17 @@
+---
+layout: page
+title: CVE
+permalink: /cve/
+---
+
+<!-- Custom template for /diary/ collection -->
+<div class="container">
+    <h1>Advisories</h1>
+    <ul>
+      {% for cve in site.cve %}
+      <li>
+        <h2><a href="{{ cve.url }}">{{ cve.title }}</a></h2>
+      </li>
+      {% endfor %}
+    </ul>
+</div>

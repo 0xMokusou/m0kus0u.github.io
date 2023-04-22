@@ -32,6 +32,9 @@ collections:
   diary:
     output: true
     permalink: /diary/:title/
+  cve:
+    output: true
+    permalink: /cves/:title/
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
