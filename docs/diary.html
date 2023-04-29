@@ -5,9 +5,10 @@ permalink: /diary/
 ---
 
 <!-- Custom template for /diary/ collection -->
+{% assign sorted_diary = site.diary | sort: 'date' | reverse %}
 <div class="container">
     <ul>
-      {% for diary in site.diary %}
+      {% for diary in sorted_diary %}
       <li>
         <h2><a href="{{ diary.url }}">{{ diary.title }}</a></h2>
         <p>{{ diary.date | date: "%B %d, %Y" }}</p>
