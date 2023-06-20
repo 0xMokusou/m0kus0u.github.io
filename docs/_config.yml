@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Mokusou's blog
+title: Mokusou's diary 
 email: so@moku.fr
 description: >- # this means to ignore newlines until "baseurl:"
   技術的な話とか、その他雑多な日記とか
@@ -29,12 +29,9 @@ plugins:
   - jekyll-feed
 
 collections:
-  diary:
+  memo:
     output: true
-    permalink: /diary/:title/
-  cve:
-    output: true
-    permalink: /cves/:title/
+    permalink: /memo/:title/
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
