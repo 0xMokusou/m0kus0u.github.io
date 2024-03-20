@@ -1,7 +1,6 @@
 require('dotenv').config();
 const { google } = require('googleapis');
 const fs = require('fs');
-const path = require('path');
 const { exec } = require('child_process');
 
 const oauth2Client = new google.auth.OAuth2(
@@ -16,8 +15,7 @@ let data = [];
 
 async function initialize(init) {
   await fetchPhotos();
-  console.log(data);
-  init ? update() : updateAll()
+  init ? updateAll() : update()
 }
 
 function update() {
@@ -42,13 +40,23 @@ function update() {
   });
 }
 
+function updateAll(){
+  const startDate = new Date('2024-03-09');
+  const today = new Date();
+
+  for (let date = startDate; date <= today; date.setDate(date.getDate() + 1)) {
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      updateByDate(`${year}-${month}-${day}`);
+  }
+}
 
 function updateByDate(date){
-  const photos = data.filter(items => {
-    // Extract the date part from the creationTime
-    const created = items.mediaMetadata.creationTime.split('T')[0];
-    return created === date;
-  });
+  let photos = [];
+  for (item of data[0]){
+    if (date === item.mediaMetadata.creationTime.split('T')[0]) photos.push(item)
+  }
   if (photos.length) {
       const file = `${date}.md`
       console.log(`Media being added to ${file}...`);
@@ -93,37 +101,8 @@ async function fetchPhotos(pageToken) {
   if (next = items.nextPageToken) {
     fetchPhotos(next);
   }
-  // ADVFWbeu50_RulrcDCXNkLO7stKdAmGPiTSKxC2SEjvKGApt6yaiPn8XlJzaDA_ITvCp1dr_Hyyw
-  // const file = path.join(diaryPath, `${year}-${month}-${day}.md`)
-  // if (data.mediaItems && data.mediaItems.length > 0 && fs.existsSync(file)) {
-  //   console.log(`Media being added to ${file}...`);
-  //   const mediaMarkup = data.mediaItems.map(mediaItem => {
-  //     const url = mediaItem.baseUrl;
-  //     if (mediaItem.mimeType.startsWith('video/')) {
-  //       return `<a href="${url}">${url}#</a>`;
-  //     } else if (mediaItem.mimeType.startsWith('image/')) {
-  //       return `<img src="${url}" alt="" style="max-width: 100%; height: auto;">`;
-  //     }
-  //   }).join(' ');
-  
-  //   let content = fs.readFileSync(file, 'utf8');
-  //   const mediaSection = `<div style="display: flex; flex-wrap: wrap; gap: 10px;">${mediaMarkup}</div>`;
-  //   if (content.includes('## Media')) {
-  //     const parts = content.split('## Media');
-  //     content = parts[0] + `## Media\n\n${mediaSection}\n`;
-  //   } else {
-  //     content += `\n## Media\n\n${mediaSection}\n`;
-  //   }
-  //   fs.writeFileSync(file, content, 'utf8');
-  // }
-  
 }
 
 
-// update();
-initialize();
-
-// if (nextPageToken) {}
-
-// 1. 全部とってJSONに格納する
-// 2. 必要な日付の分を取る
+// argument指定しないと、modified/addedのデータのみ更新
+initialize(true);
