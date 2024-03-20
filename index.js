@@ -46,8 +46,8 @@ function updateAll(){
 
   for (let date = startDate; date <= today; date.setDate(date.getDate() + 1)) {
       const year = date.getFullYear();
-      const month = date.getMonth() + 1;
-      const day = date.getDate();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');;
+      const day = date.getDate().toString().padStart(2, '0');
       updateByDate(`${year}-${month}-${day}`);
   }
 }
@@ -58,9 +58,9 @@ function updateByDate(date){
     if (date === item.mediaMetadata.creationTime.split('T')[0]) photos.push(item)
   }
   if (photos.length) {
-      const file = `${date}.md`
-      console.log(`Media being added to ${file}...`);
-      const mediaMarkup = data.map(item => {
+      const file = `./docs/_diary/${date}.md`
+      console.log(`Media being added/updated for ${file}...`);
+      const mediaMarkup = photos.map(item => {
         const url = item.baseUrl;
         if (item.mimeType.startsWith('video/')) {
           return `<a href="${url}">${url}#</a>`;
