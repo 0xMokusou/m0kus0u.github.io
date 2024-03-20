@@ -13,7 +13,7 @@ oauth2Client.setCredentials({
 });
 let data = [];
 
-async function initialize(init) {
+async function main(init) {
   await fetchPhotos();
   init ? updateAll() : update()
 }
@@ -61,11 +61,10 @@ function updateByDate(date){
       const file = `./docs/_diary/${date}.md`
       console.log(`Media being added/updated for ${file}...`);
       const mediaMarkup = photos.map(item => {
-        const url = item.baseUrl;
         if (item.mimeType.startsWith('video/')) {
-          return `<a href="${url}">${url}#</a>`;
+          return `<a href="${item.productUrl}">video</a><br>`;
         } else if (item.mimeType.startsWith('image/')) {
-          return `<img src="${url}" alt="" style="max-width: 100%; height: auto;">`;
+          return `<img src="${item.baseUrl}" alt="" style="max-width: 100%; height: auto;"><br>`;
         }
       }).join(' ');
     
@@ -104,5 +103,8 @@ async function fetchPhotos(pageToken) {
 }
 
 
-// argument指定しないと、modified/addedのデータのみ更新
-initialize(true);
+if (process.argv.length > 2 && process.argv[2] === "all") {
+  main(true);
+} else {
+  main();
+}
