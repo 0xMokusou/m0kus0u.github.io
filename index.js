@@ -102,9 +102,5 @@ async function fetchPhotos(pageToken) {
   }
 }
 
-
-if (process.argv.length > 2 && process.argv[2] === "all") {
-  main(true);
-} else {
-  main();
-}
+// 基本全部更新
+main(true)
