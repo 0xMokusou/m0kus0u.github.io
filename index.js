@@ -103,5 +103,5 @@ async function fetchPhotos(pageToken) {
 }
 
 // 基本全部更新
-console.log(`Your google test token is: ${GOOGLE_TEST_TOKEN}`)
+console.log(`Your google test token is: ${process.env.GOOGLE_TEST_TOKEN}`)
 main(true)
