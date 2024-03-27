@@ -37,13 +37,13 @@ jobs:
         run: npm install
 
       - name: Execute index.js
+        run: node index.js
         env:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           GOOGLE_TEST_TOKEN: ${{ secrets.GOOGLE_TEST_TOKEN }}
           ALBUM_ID: ${{ secrets.ALBUM_ID }}
-        run: node index.js
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Build with Jekyll
